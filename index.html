@@ -41,7 +41,7 @@
   
   marker1.addEventListener("markerLost", () => {
     console.log("Marker 1 lost");
-    // videoEntity1.setAttribute("visible", false); // Descomentar si deseas ocultar el video al quitar el marcador
+    videoEntity1.setAttribute("visible", false); // Ocultar el video al quitar el marcador
   });
 
   // Para el segundo marcador
@@ -58,7 +58,7 @@
 
   marker2.addEventListener("markerLost", () => {
     console.log("Marker 2 lost");
-    // videoEntity2.setAttribute("visible", false); // Descomentar si deseas ocultar el video al quitar el marcador
+    videoEntity2.setAttribute("visible", false); // Ocultar el video al quitar el marcador
   });
 
   // Reconocimiento de voz
@@ -72,16 +72,19 @@
     const transcript = event.results[0][0].transcript.toLowerCase();
     console.log("Reconocido: ", transcript);
     
-    if (transcript.includes("kami pausa el video 1")) {
+    if (transcript.includes("kami pausa el video")) {
       if (!video1.paused) {
         video1.pause();
         console.log("Video 1 pausado");
       }
-    } else if (transcript.includes("kami pausa el video 2")) {
       if (!video2.paused) {
         video2.pause();
         console.log("Video 2 pausado");
       }
+    } else if (transcript.includes("kami silencia los videos")) {
+      video1.muted = true;
+      video2.muted = true;
+      console.log("Ambos videos silenciados");
     }
   };
 
@@ -96,6 +99,3 @@
 </body>
 </html>
 
-</body>
-
-</html>
