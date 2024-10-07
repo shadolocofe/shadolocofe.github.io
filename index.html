@@ -12,15 +12,15 @@
 <a-scene embedded arjs="debugUIEnabled: false;" vr-mode-ui="enabled: false">
 
   <!-- Primer marcador con primer video -->
-  <a-marker preset="hiro">
-    <video id="video1" crossOrigin="anonymous" playsinline webkitplaysinline autoplay controls muted src="1.mp4"></video>
-    <a-video src="#video1" position="0 0 0" rotation="270 0 0"></a-video>
+  <a-marker preset="hiro" id="marker1">
+    <video id="video1" crossOrigin="anonymous" playsinline webkitplaysinline src="1.mp4" muted></video>
+    <a-video src="#video1" position="0 0 0" rotation="0 0 0" visible="false"></a-video>
   </a-marker>
 
   <!-- Segundo marcador con segundo video -->
-  <a-marker preset="kanji">
-    <video id="video2" crossOrigin="anonymous" playsinline webkitplaysinline autoplay controls muted src="2.mp4"></video>
-    <a-video src="#video2" position="0 0 0" rotation="270 0 0"></a-video>
+  <a-marker preset="kanji" id="marker2">
+    <video id="video2" crossOrigin="anonymous" playsinline webkitplaysinline src="2.mp4" muted></video>
+    <a-video src="#video2" position="0 0 0" rotation="0 0 0" visible="false"></a-video>
   </a-marker>
 
   <a-entity camera></a-entity>
@@ -28,33 +28,37 @@
 
 <script>
   // Para el primer marcador
-  var marker1 = document.querySelector("a-marker[preset='hiro']");
+  var marker1 = document.querySelector("#marker1");
+  var video1 = document.querySelector("#video1");
+  var videoEntity1 = document.querySelector("a-video[src='#video1']");
+  
   marker1.addEventListener("markerFound", () => {
     console.log("Marker 1 found");
-    var video1 = document.querySelector('#video1');
     video1.muted = false; // Activar sonido
     video1.play();
+    videoEntity1.setAttribute("visible", true); // Hacer visible el video
   });
   
   marker1.addEventListener("markerLost", () => {
     console.log("Marker 1 lost");
-    var video1 = document.querySelector('#video1');
-    video1.pause();
+    // videoEntity1.setAttribute("visible", false); // Descomentar si deseas ocultar el video al quitar el marcador
   });
 
   // Para el segundo marcador
-  var marker2 = document.querySelector("a-marker[preset='kanji']");
+  var marker2 = document.querySelector("#marker2");
+  var video2 = document.querySelector("#video2");
+  var videoEntity2 = document.querySelector("a-video[src='#video2']");
+  
   marker2.addEventListener("markerFound", () => {
     console.log("Marker 2 found");
-    var video2 = document.querySelector('#video2');
     video2.muted = false; // Activar sonido
     video2.play();
+    videoEntity2.setAttribute("visible", true); // Hacer visible el video
   });
 
   marker2.addEventListener("markerLost", () => {
     console.log("Marker 2 lost");
-    var video2 = document.querySelector('#video2');
-    video2.pause();
+    // videoEntity2.setAttribute("visible", false); // Descomentar si deseas ocultar el video al quitar el marcador
   });
 
   // Reconocimiento de voz
@@ -68,13 +72,12 @@
     const transcript = event.results[0][0].transcript.toLowerCase();
     console.log("Reconocido: ", transcript);
     
-    if (transcript.includes("kami pausa el video")) {
-      const video1 = document.querySelector('#video1');
-      const video2 = document.querySelector('#video2');
+    if (transcript.includes("kami pausa el video 1")) {
       if (!video1.paused) {
         video1.pause();
         console.log("Video 1 pausado");
       }
+    } else if (transcript.includes("kami pausa el video 2")) {
       if (!video2.paused) {
         video2.pause();
         console.log("Video 2 pausado");
@@ -92,7 +95,6 @@
 
 </body>
 </html>
-
 
 </body>
 
