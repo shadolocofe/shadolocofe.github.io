@@ -69,22 +69,27 @@
     console.log("Reconocido: ", transcript);
     
     if (transcript.includes("kami pausa el video")) {
-      const video1 = document.querySelector('#video1');
-      const video2 = document.querySelector('#video2');
-      if (!video1.paused) {
-        video1.pause();
-        console.log("Video 1 pausado");
-      }
-      if (!video2.paused) {
-        video2.pause();
-        console.log("Video 2 pausado");
-      }
+      pauseVideos();
     }
   };
 
   recognition.onerror = (event) => {
     console.error("Error de reconocimiento de voz: ", event.error);
   };
+
+  // Función para pausar los videos
+  function pauseVideos() {
+    const video1 = document.querySelector('#video1');
+    const video2 = document.querySelector('#video2');
+    if (!video1.paused) {
+      video1.pause();
+      console.log("Video 1 pausado");
+    }
+    if (!video2.paused) {
+      video2.pause();
+      console.log("Video 2 pausado");
+    }
+  }
 
   // Inicia el reconocimiento de voz
   recognition.start();
