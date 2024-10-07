@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+  <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/dev/aframe/build/aframe-ar.js"></script>
+  <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+
+<body style='margin: 0px; overflow: hidden;'>
+
+  <a-scene embedded arjs="debugUIEnabled: false;" vr-mode-ui="enabled: false">
+
+    <!-- Marcador único que detecta la imagen y reproduce el video automáticamente -->
+    <a-marker preset="hiro"> <!-- Cambia "hiro" por el marcador que estés utilizando -->
+      <video id="video1" crossOrigin="anonymous" playsinline webkitplaysinline src="1.mp4"></video>
+      <a-video src="#video1" position="0 0 0" rotation="270 0 0"></a-video>
+    </a-marker>
+
+    <a-entity camera></a-entity>
+  </a-scene>
+
+  <script>
+    // Detecta cuando se encuentra el marcador
+    var marker = document.querySelector("a-marker[preset='hiro']"); // Usa "preset='kanji'" si estás usando ese marcador
+    marker.addEventListener("markerFound", () => {
+      console.log("Marker found");
+      var video = document.querySelector('#video1');
+      video.muted = false; // Activar el sonido automáticamente
+      video.play(); // Reproducir el video automáticamente
+    });
+
+    // Pausar el video cuando se pierde el marcador
+    marker.addEventListener("markerLost", () => {
+      console.log("Marker lost");
+      var video = document.querySelector('#video1');
+      video.pause();
+    });
+  </script>
+
+</body>
+
+</html>
