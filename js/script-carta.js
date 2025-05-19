@@ -124,7 +124,7 @@ function mostrarCarta() {
 
   const cardText = $('.enveloper__card-text')[0];
   cardText.textContent = "";
-  efectoHackeo(cardText, "Feliz Cumpleaños, Lucía ❤️");
+  efectoHackeo(cardText, "Feliz Cumpleaños, Amor ❤️");
 
   setTimeout(() => {
     // Mostrar la carta secundaria después de 4 segundos
