@@ -34,7 +34,7 @@ function interactuar() {
       z-index: 9999;
       transition: opacity 1s ease;
     `;
-        overlay.innerHTML = "Feliz Cumpleaños, Lucía ❤️";
+        overlay.innerHTML = "Feliz Cumpleaños, Amor ❤️";
         document.body.appendChild(overlay);
 
         setTimeout(() => {
